@@ -7,12 +7,11 @@
 //
 
 #import "ViewController.h"
-#import <UnityAds/UnityAds.h>
 @import SystemConfiguration;
 @import CFNetwork;
 
 
-@interface ViewController () <UnityAdsDelegate>
+@interface ViewController ()
 
 @end
 
@@ -22,11 +21,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    [[UnityAds sharedInstance] startWithGameId:@"58500" andViewController:self];
-    
-    [[UnityAds sharedInstance] setDelegate:self];
-    
-    [[UnityAds sharedInstance] setZone:@"rewardedVideoZone"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,6 +28,12 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)showAdPressed:(id)sender {
+    
+    [[UnityAds sharedInstance] setDelegate:self];
+    
+    [[UnityAds sharedInstance] setZone:@"rewardedVideoZone"];
+    
+    
     NSLog(@"pressed");
     // Use the canShow method to check for zone readiness,
     //  then use the canShowAds method to check for ad readiness.
@@ -44,6 +44,7 @@
     }else{
         NSLog(@"canShow is false");
     }
+    
 }
 
 - (void)unityAdsVideoCompleted:(NSString *)rewardItemKey skipped:(BOOL)skipped{

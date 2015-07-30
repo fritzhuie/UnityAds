@@ -7,16 +7,27 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
 
-@interface AppDelegate ()
+@interface AppDelegate () <UnityAdsDelegate>
+
+@property UIViewController *vc;
 
 @end
 
 @implementation AppDelegate
+@synthesize vc = _vc;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    _vc = [mainStoryboard instantiateViewControllerWithIdentifier:@"root"];
+    self.window.rootViewController = _vc;
+    
+    
+    [[UnityAds sharedInstance] startWithGameId:@"58500" andViewController:_vc];
     
     return YES;
 }
@@ -41,6 +52,10 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)unityAdsVideoCompleted:(NSString *)rewardItemKey skipped:(BOOL)skipped{
+    
 }
 
 @end
